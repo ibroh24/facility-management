@@ -3,15 +3,14 @@
     Created by: Ibrahim Hammed
     Date: 15th August, 2019.
  -->
-<?php include "baseFunction.php"; ?>
+<?php session_start(); ?>
+ <?php include "baseFunction.php"; ?>
+ <?php
 
-<?php 
-//session_start();
 if(!isset($_SESSION['username']))
 {
-    session_start();    
+    header("Location: index.php");
 }
-
 ?>
 
 <!DOCTYPE html>

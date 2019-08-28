@@ -27,7 +27,7 @@ function escapeString($dbConnect, $field)
 
 function loginCheck($dbConnect)
 {
-    if (isset($_POST['login'])) {
+    if (isset($_POST['login'])) { 
         $username = escapeString($dbConnect, $_POST['username']);
         $password = escapeString($dbConnect, $_POST['password']);
         $password = md5($password);
@@ -36,7 +36,7 @@ function loginCheck($dbConnect)
             $runScript = mysqli_query($dbConnect, $script);
             if (generalErrorCheck($dbConnect, $runScript));
             else {
-                while ($returnRows = mysqli_fetch_assoc($runScript)) {
+                if ($returnRows = mysqli_fetch_assoc($runScript)) {
                     $username = $returnRows['username'];
                     $_SESSION['username'] = $username;
                     $_SESSION['loginTime'] = time();
@@ -842,7 +842,18 @@ function baseReportFunction($dbConnect, $tableName, $columnClause = null)
     }
 }
 
-
+?>
+<script>
+    function printReport(){
+        var printer = document.getElementById = "printPdf";
+        // var hidden = document.getElementById("printPdf").style.visibility = "hidden";
+        if(printer){
+            print();
+        }
+        
+    }
+</script>
+<?php
 
 
 ?>

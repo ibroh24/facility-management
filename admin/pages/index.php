@@ -5,12 +5,8 @@
 -->
 <?php session_start(); ?>
 <?php include "includes/baseFunction.php"; ?>
-<?php
 
-
-
-?>
-<?php session_unset(); ?>
+<?php unset($_SESSION['username']); ?>
 
 <!DOCTYPE html>
 <html dir="ltr">
