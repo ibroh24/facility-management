@@ -31,7 +31,7 @@
                                     <br>
                                     <div>
                                         <!-- <button style="background-color: rgb(3, 169, 243); color: rgb(255, 255, 255); font-weight: bold; font-size: 16px; margin-top: 20px;"> -->
-                                        <a onclick="printReport()" style="background-color: rgb(3, 169, 243); color: rgb(255, 255, 255); font-weight: bold; font-size: 16px;" id="printPdf" class="btn" href="facilitysetup.php">Print Report</a>
+                                        <a onclick="print()" style="background-color: rgb(3, 169, 243); color: rgb(255, 255, 255); font-weight: bold; font-size: 16px;" id="printPdf" class="btn" href="facilitysetup.php">Print Report</a>
                                         <!-- </button> -->
                                     </div>
                                 </div>

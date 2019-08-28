@@ -842,18 +842,5 @@ function baseReportFunction($dbConnect, $tableName, $columnClause = null)
     }
 }
 
-?>
-<script>
-    function printReport(){
-        var printer = document.getElementById = "printPdf";
-        // var hidden = document.getElementById("printPdf").style.visibility = "hidden";
-        if(printer){
-            print();
-        }
-        
-    }
-</script>
-<?php
-
 
 ?>
