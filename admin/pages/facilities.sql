@@ -35,6 +35,7 @@ CREATE TABLE `issues` (
   `reportedby` varchar(36) DEFAULT NULL,
   `planamount` decimal(19,2) DEFAULT NULL,
   `isrepairable` bit(1) DEFAULT b'1',
+  `nextservicedate` date DEFAULT NULL,
   PRIMARY KEY (`issueid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -45,7 +46,7 @@ CREATE TABLE `issues` (
 
 LOCK TABLES `issues` WRITE;
 /*!40000 ALTER TABLE `issues` DISABLE KEYS */;
-INSERT INTO `issues` VALUES (1,'Flat Typre','Truck','New check on the truck shows that we need to repair the tyre','Juwonlo Service Depot','012986789','23, Aviation road, Along MMIA, Ikeja, Lagos State','2019-08-14','2019-08-19','uthman',2.00,'\0'),(2,'Servicing','Truck','Need to service the truck','Juwonlo Service Depot','08165632190','23, Aviation road, Along MMIA, Ikeja, Lagos State','2019-08-18','2019-08-22','highbee',25.00,''),(3,'Battery','Battery','This is battery problem','Juwonlo Service Depot','0907889009','23, Aviation road, Along MMIA, Ikeja, Lagos State','2019-08-16','2019-08-19','Danjuma',20.00,''),(6,'Servicing','Washing Machine','The washing machine develop fault when we were trying to use it on Tuesday evening','AutoBase Fresh Service','08065616850','Ajibade Shopping Complex, Agodi Gate, Ibadan','2019-08-19','2019-08-19','tunde',70.00,'\0'),(7,'Not Display','Plazma TV','The Plazma TV automatically off on Wednesday morning','Owonwami Electronics','07064538790','Wakajaye Area, Ibadan','2019-08-25','2019-08-25','abdullah',6500.00,''),(8,'cable fail','Iron','the cable failed','Owonwami Electronics','0907889009','Wakajaye Area, Ibadan','2019-08-26','2019-08-26','akin',2000.00,'');
+INSERT INTO `issues` VALUES (1,'Flat Typre','Truck','New check on the truck shows that we need to repair the tyre','Juwonlo Service Depot','012986789','23, Aviation road, Along MMIA, Ikeja, Lagos State','2019-08-14','2019-08-19','uthman',20000.00,'\0','2019-09-13'),(2,'Servicing','Truck','Need to service the truck','Juwonlo Service Depot','08165632190','23, Aviation road, Along MMIA, Ikeja, Lagos State','2019-08-18','2019-08-22','highbee',25.00,'\0','2019-09-27'),(3,'Battery','Battery','This is battery problem','Juwonlo Service Depot','0907889009','23, Aviation road, Along MMIA, Ikeja, Lagos State','2019-08-16','2019-08-19','Danjuma',20.00,'\0','2019-09-30'),(6,'Servicing','Washing Machine','The washing machine develop fault when we were trying to use it on Tuesday evening','AutoBase Fresh Service','08065616850','Ajibade Shopping Complex, Agodi Gate, Ibadan','2019-08-19','2019-08-19','tunde',70.00,'','2019-10-02'),(7,'Not Display','Plazma TV','The Plazma TV automatically off on Wednesday morning','Owonwami Electronics','07064538790','Wakajaye Area, Ibadan','2019-08-25','2019-08-25','abdullah',6500.00,'','0000-00-00'),(8,'cable fail','Iron','the cable failed','Owonwami Electronics','0907889009','Wakajaye Area, Ibadan','2019-08-26','2019-08-26','akin',2000.00,'','0000-00-00');
 /*!40000 ALTER TABLE `issues` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -122,7 +123,7 @@ CREATE TABLE `users` (
   `usertype` varchar(36) DEFAULT NULL,
   `userstatus` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -131,7 +132,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (3,'Salami','Ibrahim','highbee','5f4dcc3b5aa765d61d8327deb882cf99','highbee@g.com','Admin',0),(4,'Ibrahim','Hammed','ibroh','696d29e0940a4957748fe3fc9efd22a3','ibroh24@g.com','Admin',0),(5,'Abdullah','Sulaymon','Danjuma','5f4dcc3b5aa765d61d8327deb882cf99','ab.sulaymon@g.com','Admin',0),(6,'Abdullah','Sulaymon','abdullah','5f4dcc3b5aa765d61d8327deb882cf99','a.sulaymon@g.com','Admin',0),(7,'uthman','Sodeeq','uthman','e10adc3949ba59abbe56e057f20f883e','ut.s@g.com','Member',0),(8,'Olatunde','Azeez','tunde','5f4dcc3b5aa765d61d8327deb882cf99','sixtus@g.com','Member',0),(10,'Uthman','Majadtek','Maj','5f4dcc3b5aa765d61d8327deb882cf99','maj@g.com','Member',0),(11,'Akintunde','AkinWale','akin','5f4dcc3b5aa765d61d8327deb882cf99','akin@g.com','Member',0);
+INSERT INTO `users` VALUES (5,'Abdullah','Sulaymon','Danjuma','5f4dcc3b5aa765d61d8327deb882cf99','ab.sulaymon@g.com','Admin',0),(6,'Abdullah','Sulaymon','abdullah','5f4dcc3b5aa765d61d8327deb882cf99','a.sulaymon@g.com','Admin',0),(12,'Abiodun','Shakirat','Abiodun','6d597d3083a78a835f1a14449aab1c94','Abiodunshakirat@gmail.com','Admin',0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -168,4 +169,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-08-28 11:57:27
+-- Dump completed on 2019-09-13 12:22:28

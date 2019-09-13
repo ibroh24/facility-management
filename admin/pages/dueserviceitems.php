@@ -1,5 +1,23 @@
 <?php include "includes/header.php"; ?>
 
+<?php /* if (isset($_GET['delete'])) {
+    $itemID = $_GET['delete'];
+    $qry = "SELECT * FROM itemsetup WHERE itemid = '$itemID'";
+    $result = mysqli_query($dbConnect, $qry);
+    if (generalErrorCheck($dbConnect, $result));
+    else {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $itemname = $row['itemname'];
+        }
+    }
+
+}
+*/
+
+?>
+
+
+
 
 <div id="main-wrapper">
     <header class="topbar" data-navbarbg="skin5">
@@ -59,15 +77,15 @@
             <nav class="sidebar-nav">
                 <ul id="sidebarnav" class="p-t-30">
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboard.php" aria-expanded="false"><i class="fas fa-clipboard-list"></i><span class="hide-menu">Dashboard</span></a></li>
-                    <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark active"><i class="fas fa-warehouse"></i><span class="hide-menu"> Facilities Management </span></a>
+                    <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"><i class="fas fa-warehouse"></i><span class="hide-menu"> Facilities Management </span></a>
                         <ul aria-expanded="false" class="collapse  first-level">
                             <li class="sidebar-item"><a href="facilitysetup.php" class="sidebar-link"><i class="mdi mdi-settings"></i><span class="hide-menu"> Facility Setup </span></a></li>
                             <li class="sidebar-item"><a href="viewfacility.php" class="sidebar-link"><i class="mdi mdi-bug"></i><span class="hide-menu"> View All Facilities </span></a></li>
                         </ul>
                     </li>
-                    <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"><i class="fas fa-cogs"></i><span class="hide-menu"> Facilities Maintenance </span></a>
+                    <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark active"><i class="fas fa-cogs"></i><span class="hide-menu"> Facilities Maintenance </span></a>
                         <ul aria-expanded="false" class="collapse  first-level">
-                        <li class="sidebar-item"><a href="addissues.php" class="sidebar-link"><i class="mdi mdi-bug"></i><span class="hide-menu"> Add Issues </span></a></li>
+                            <li class="sidebar-item"><a href="addissues.php" class="sidebar-link"><i class="mdi mdi-bug"></i><span class="hide-menu"> Add Issues </span></a></li>
                             <!-- <li class="sidebar-item"><a href="dueserviceitems.php" class="sidebar-link"><i class="mdi mdi-bug"></i><span class="hide-menu"> View Expired Facilities </span></a></li> -->
                             <li class="sidebar-item"><a href="serviceentry.php" class="sidebar-link"><i class="mdi mdi-settings"></i><span class="hide-menu"> Service Entry </span></a></li>
                             <li class="sidebar-item"><a href="dueserviceitems.php" class="sidebar-link"><i class="mdi mdi-settings"></i><span class="hide-menu"> Item Due to Service</span></a></li>
@@ -80,7 +98,7 @@
                         </ul>
                     </li>
                     <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"><i class="fas fa-database"></i><span class="hide-menu">Reports </span></a>
-                        <ul aria-expanded="false" class="collapse  first-level">
+                        <ul aria-expanded="false" class="collapse first-level">
                         <li class="sidebar-item"><a href="report_user.php" target="_blank" class="sidebar-link"><i class="fas fa-chart-bar"></i><span class="hide-menu"> All User Report</span></a></li>
                             <li class="sidebar-item"><a href="report_item.php" target="_blank" class="sidebar-link"><i class="fas fa-chart-pie"></i><span class="hide-menu"> All Item Report</span></a></li>
                             <!-- <li class="sidebar-item"><a href="report_issues.php" class="sidebar-link"><i class="fas fa-chart-pie"></i><span class="hide-menu"> All Issues Report </span></a></li> -->
@@ -101,12 +119,12 @@
         <div class="page-breadcrumb">
             <div class="row">
                 <div class="col-12 d-flex no-block align-items-center">
-                    <h4 class="page-title">Facility Setup</h4>
+                    <h4 class="page-title">Facilities Due For Service</h4>
                     <div class="ml-auto text-right">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#">Facility Setup</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Add Facilities</li>
+                                <li class="breadcrumb-item"><a href="viewfacility.php">View Facilities</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Facilities Service Due</li>
                             </ol>
                         </nav>
                     </div>
@@ -119,90 +137,44 @@
                 <!-- Column -->
                 <div class="col-md-12">
                     <div class="card">
-                        <form class="form-group" method="post">
+                        <form class="form-group">
                             <div class="card-body">
-                                <h4 style="background-color: rgb(3, 169, 243); height:50px; padding-top: 20px; padding-left: 10px; color: rgb(255, 255, 255);">Facility Data</h4>
+                                <h4 class="card-title">View Facilities Due For Service</h4>
                                 <div class="border-top">
                                     <br>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                        <label for="fname" class="control-label"><b>Item Name</b></label>
-                                            <input type="text" class="form-control" name="itemname" id="itemname" placeholder="Enter Item Name">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table id="zero_config" class="table table-striped table-bordered ">
+                                                    <thead style="background-color: rgb(3, 169, 243); color: rgb(255, 255, 255); font-weight: bold; font-size: 14px;">
+                                                        <tr>
+                                                            <!-- <th><b>Action</b></th> -->
+                                                            <th><b>Item Name</b></th>
+                                                            <th><b>Propose Amount</b></th>
+                                                            <th><b>Fault Date</b></th>
+                                                            <th><b>Repaired Date</b></th>
+                                                            <th><b>Next Service Date</b></th>                                                            
+                                                            <th><b>Repairer Name</b></th>
+                                                            <th><b>Repairer Number</b></th>
+                                                            <th><b>Reported By</b></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php dueserviceitems($dbConnect); ?>
+                                                        <?php //deleteIssues($dbConnect); ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            <!-- <div>
+                                                <button style="background-color: rgb(3, 169, 243); color: rgb(255, 255, 255); font-weight: bold; font-size: 16px; margin-top: 20px;">
+                                                    <a style="background-color: rgb(3, 169, 243); color: rgb(255, 255, 255); font-weight: bold; font-size: 16px;" class="btn" href="addissues.php">Add New Issue</a>
+                                                </button>
+                                            </div> -->
                                         </div>
-
-                                        <div class="col-md-6">
-                                        <label class="control-label"><b>Item Type</b></label>
-                                        <select class="form-control custom-select" name="itemtype" style="width: 100%; height:36px;">
-
-                                            <option>Select Item Type</option>  
-                                           
-                                            <?php $query = "SELECT * FROM `itemtypessetup`"; ?>
-
-                                            <?php $result = mysqli_query($dbConnect, $query);
-                                            if(generalErrorCheck($dbConnect, $result));
-                                            else
-                                                while($row = mysqli_fetch_assoc($result))
-                                                { $itemtype = $row['itemtype'];
-                                                  echo "<option value='$itemtype'>{$itemtype}</option>";
-                                                }
-                                            ?>                                               
-                                        </select>
-                                    </div>
-
-
-                                    <div class="col-md-6">
-                                        <label for="lname" class="control-label col-form-label"><b>Item Model</b></label>
-                                            <input type="text" class="form-control" name="itemmodel" id="lname" placeholder="Enter Item Model">
-                                        </div>
-
-
-                                        <div class="col-md-6">
-                                        <label for="lname" class="control-label col-form-label"><b>Item Amount</b></label>
-                                            <input type="text" class="form-control" name="itemamount" id="lname" placeholder="Enter Item Amount">
-                                            
-                                        </div>
-
-
-                                        <div class="col-md-6">
-                                        <label for="lname" class="control-label col-form-label"><b>Item Number</b></label>
-                                            <input type="text" class="form-control" name="itemnumber" id="lname" placeholder="Enter Item Number">
-                                        </div>
-
-                                        <div class="col-md-6">
-                                        <label for="lname" class="control-label col-form-label"><b>Item Receipt Number</b></label>
-                                            <input type="text" class="form-control" name="itemrecieptnumber" id="lname" placeholder="Enter Receipt Number">
-                                        </div>
-                                        <div class="col-md-6">
-                                        <label for="lname" class="control-label col-form-label"><b>Item Chasis Number</b></label>
-                                            <input type="text" class="form-control" name="itemchasisnumber" id="lname" placeholder="Enter Chasis Number">
-                                        </div>
-                                        <div class="col-md-6">
-                                        <label for="lname" class="control-label col-form-label"><b>Item Engine Number</b></label>
-                                            <input type="text" class="form-control" name="itemenginenumber" id="lname" placeholder="Enter Engine Number">
-                                        </div>
-
-
-                                    </div>
-                                    </div>
-                                    
-                                    <label for="lname" class="control-label col-form-label"><b>Item Purchase Date</b></label>
-                                    <div class="col-md-6">
-                                    <div class="input-group">
-                                    <input type="date" autocomplete="off" class="form-control" name="itempurchasedate" placeholder="mm/dd/yyyy"><span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                                </div>
-                                </div>
-                                    </div> 
-                                    </div>                                        
-                                        
                                     </div>
                                 </div>
-                                <div class="border-top">
-                                    <div class="card-body">
-                                        <b><input type="submit" style="background-color: rgb(3, 169, 243); color: rgb(255, 255, 255);" class="btn btn-block" name="items" value="Add Item"></b>
-                                    </div>
-                                </div>
-                                <?php  insertData($dbConnect); ?>
-                        </form>
+                            </div>
                     </div>
                 </div>
 

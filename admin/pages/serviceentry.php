@@ -86,8 +86,9 @@
                     <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark active"><i class="fas fa-cogs"></i><span class="hide-menu"> Facilities Maintenance </span></a>
                         <ul aria-expanded="false" class="collapse  first-level">
                             <li class="sidebar-item"><a href="addissues.php" class="sidebar-link"><i class="mdi mdi-bug"></i><span class="hide-menu"> Add Issues </span></a></li>
-                            <!-- <li class="sidebar-item"><a href="viewVehicle.php" class="sidebar-link"><i class="mdi mdi-bug"></i><span class="hide-menu"> View Expired Facilities </span></a></li> -->
+                            <!-- <li class="sidebar-item"><a href="dueserviceitems.php" class="sidebar-link"><i class="mdi mdi-bug"></i><span class="hide-menu"> View Expired Facilities </span></a></li> -->
                             <li class="sidebar-item"><a href="serviceentry.php" class="sidebar-link"><i class="mdi mdi-settings"></i><span class="hide-menu"> Service Entry </span></a></li>
+                            <li class="sidebar-item"><a href="dueserviceitems.php" class="sidebar-link"><i class="mdi mdi-settings"></i><span class="hide-menu"> Item Due to Service</span></a></li>
                         </ul>
                     </li>
                     <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"><i class="fas fa-user-circle"></i><span class="hide-menu">Users </span></a>
@@ -145,7 +146,7 @@
                                         <div class="card-body">
                                             <div class="table-responsive">
                                                 <table id="zero_config" class="table table-striped table-bordered ">
-                                                    <thead style="background-color: rgb(3, 169, 243); color: rgb(255, 255, 255); font-weight: bold; font-size: 16px;">
+                                                    <thead style="background-color: rgb(3, 169, 243); color: rgb(255, 255, 255); font-weight: bold; font-size: 14px;">
                                                         <tr>
                                                             <th><b>Action</b></th>
                                                             <th><b>Item Name</b></th>
@@ -153,6 +154,7 @@
                                                             <th><b>Propose Amount</b></th>
                                                             <th><b>Fault Date</b></th>
                                                             <th><b>Repaired Date</b></th>
+                                                            <th><b>Next Service Date</b></th>                                                            
                                                             <th><b>Repairer Name</b></th>
                                                             <th><b>Repairer Number</b></th>
                                                             <th><b>Reported By</b></th>

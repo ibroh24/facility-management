@@ -47,14 +47,14 @@
         <!-- ============================================================== -->
         <!-- Login box.scss -->
         <!-- ============================================================== -->
-        <div class="text-center bg-dark" style="color:bisque; padding-top: 70px; margin-bottom: 150px;">
+        <div class="text-center bg-dark" style="color:bisque; padding-top: 70px; margin-bottom: 100px;">
             <h1>Facility Managment Project</h1>
             <br>
             <h4>A Case Study of Eko Hotel</h4>
             <br>
             <i>Designed and Developed by </i><b><?php print(strtoupper("Ganiyu Abiodun Shakirat")); ?></b> <i>and Supervised by</i> <b>ENGR. S. O. ADEFAMOYE</b>
         <!-- </div> -->
-        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center bg-dark">
+        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center bg-dark" style="padding-top: 20px;">
             <div class="auth-box bg-dark border-top border-secondary">
                 <div id="loginform">
                     <!-- <div class="text-center p-t-20 p-b-20">
@@ -87,7 +87,22 @@
                                 </div>
                             </div>
                         </div>
-                        <?php loginCheck($dbConnect); ?>
+                        <?php 
+                
+                    if (isset($_POST['login'])) { 
+                            $res = loginCheck($dbConnect); 
+
+                            if($res == 0){?>
+                                <script>
+                                    alert("username or password is incorrect!");
+                                    <?php echo ("location.href = 'index.php';"); ?>
+                                </script>
+                           <?php } else {?>
+                                <script>
+                                    <?php echo ("location.href = 'dashboard.php';"); ?>
+                                </script>
+                           <?php }}
+                        ?>
                     </form>
                     
                 </div>
@@ -115,7 +130,7 @@
                         </form>
                     </div>
                 </div>
-            </div>
+            <!-- </div> -->
         </div>
         <!-- ============================================================== -->
         <!-- Login box.scss -->

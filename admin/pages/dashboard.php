@@ -89,14 +89,13 @@ $repairer = mysqli_num_rows($res);
                         <ul aria-expanded="false" class="collapse  first-level">
                             <li class="sidebar-item"><a href="facilitysetup.php" class="sidebar-link"><i class="mdi mdi-settings"></i><span class="hide-menu"> Facility Setup </span></a></li>
                             <li class="sidebar-item"><a href="viewfacility.php" class="sidebar-link"><i class="mdi mdi-bug"></i><span class="hide-menu"> View All Facilities </span></a></li>
-                            <!-- <li class="sidebar-item"><a href="viewVehicle.php" class="sidebar-link"><i class="mdi mdi-settings"></i><span class="hide-menu"> Service Entry </span></a></li> -->
                         </ul>
                     </li>
                     <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"><i class="fas fa-cogs"></i><span class="hide-menu"> Facilities Maintenance </span></a>
                         <ul aria-expanded="false" class="collapse  first-level">
                             <li class="sidebar-item"><a href="addissues.php" class="sidebar-link"><i class="mdi mdi-bug"></i><span class="hide-menu"> Add Issues </span></a></li>
-                            <!-- <li class="sidebar-item"><a href="viewVehicle.php" class="sidebar-link"><i class="mdi mdi-bug"></i><span class="hide-menu"> View Expired Facilities </span></a></li> -->
                             <li class="sidebar-item"><a href="serviceentry.php" class="sidebar-link"><i class="mdi mdi-settings"></i><span class="hide-menu"> Service Entry </span></a></li>
+                            <li class="sidebar-item"><a href="dueserviceitems.php" class="sidebar-link"><i class="mdi mdi-settings"></i><span class="hide-menu"> Item Due to Service Today</span></a></li>
                         </ul>
                     </li>
                     <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"><i class="fas fa-user-circle"></i><span class="hide-menu">Users </span></a>
@@ -204,11 +203,11 @@ $repairer = mysqli_num_rows($res);
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                        <div class="bg-secondary p-30 text-white text-center">
-                                                <h3 class="fas fa-users m-b-15 font-25"></h3>
-                                                <h5 class="m-b-0 m-t-5"><?php baseTotalCount($dbConnect, 'users'); ?></h5>
-                                                <br><br>
-                                                <h4 class="font-light"><a href="manageUsers.php" class="text-white">Member Users</a></h4>
+                                        <div class="bg-warning p-30 text-white text-center">
+                                                <h3 class="mdi mdi-settings m-b-15 font-25"></h3>
+                                                <h5 class="m-b-0 m-t-5"><?php totalServiceDateCount($dbConnect, 'issues'); ?></h5>
+                                                <br>
+                                                <h4 class="font-dark" style="background-color:white;"><a href="dueserviceitems.php" class="text-danger"><b>Total Item(s) Due for Service Today</b></a></h4>
                                                 <!-- <p class="font-light"></p> -->
                                             </div>
                                         </div>

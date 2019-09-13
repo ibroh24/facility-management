@@ -21,6 +21,7 @@
                                                     <th><b>Propose Amount</b></th>
                                                     <th><b>Fault Date</b></th>
                                                     <th><b>Repaired Date</b></th>
+                                                    <th><b>Next Service Date</b></th>
                                                     <th><b>Repairer Name</b></th>
                                                     <th><b>Repairer Number</b></th>
                                                     <th><b>Reported By</b></th>

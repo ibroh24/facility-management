@@ -6,6 +6,9 @@
     Created By:     Ibrahim Hammed
     Created Date:   16th August, 2019.
 
+    Modified By:    Salami Ibrahim
+    Modifid Date:   22nd August, 2019.
+
 */
 
 require "dbHandler.php";
@@ -27,7 +30,7 @@ function escapeString($dbConnect, $field)
 
 function loginCheck($dbConnect)
 {
-    if (isset($_POST['login'])) { 
+    
         $username = escapeString($dbConnect, $_POST['username']);
         $password = escapeString($dbConnect, $_POST['password']);
         $password = md5($password);
@@ -42,22 +45,12 @@ function loginCheck($dbConnect)
                     $_SESSION['loginTime'] = time();
 
                     if ($runScript) {
-                        ?>
-<script>
-    <?php echo ("location.href = 'dashboard.php';"); ?>
-</script>
-<?php } else {
-                        ?>
-<script>
-    alert("username or password is incorrect!");
-    <?php echo ("location.href = 'index.php';"); ?>
-</script>
-<?php
-                        // header("Location: ..index.php");
+                        return 1;
+                    } else {
+                        return 0;
                     }
                 }
             }
-        }
     }
 }
 
@@ -157,6 +150,7 @@ function insertIssueInfo($dbConnect)
         $issuedate = escapeString($dbConnect, $_POST['issuedate']);
         $description = escapeString($dbConnect, $_POST['description']);
         $repaireddate = escapeString($dbConnect, $_POST['repaireddate']);
+        $nextservicedate = escapeString($dbConnect, $_POST['nextservicedate']);
 
         $inputField = array(
             'issuetitle' => $issuetitle,
@@ -169,7 +163,8 @@ function insertIssueInfo($dbConnect)
             'isrepairable' => $isrepairable,
             'issuedate' => $issuedate,
             'description' => $description,
-            'repaireddate' => $repaireddate
+            'repaireddate' => $repaireddate,
+            'nextservicedate' => $nextservicedate
         );
 
 
@@ -387,6 +382,9 @@ function updateFaultyItems($dbConnect){
         $issuedate = escapeString($dbConnect, $_POST['issuedate']);
         $description = escapeString($dbConnect, $_POST['description']);
         $repaireddate = escapeString($dbConnect, $_POST['repaireddate']);
+        $nextservicedate = escapeString($dbConnect, $_POST['nextservicedate']);
+
+        
         
         // $issuedate = date_format($issuedate, "dd-MM-yyyy");
 
@@ -401,7 +399,8 @@ function updateFaultyItems($dbConnect){
             'isrepairable' => $isrepairable,
             'issuedate' => $issuedate,
             'description' => $description,
-            'repaireddate' => $repaireddate
+            'repaireddate' => $repaireddate,
+            'nextservicedate' => $nextservicedate
         );
 
 
@@ -415,7 +414,7 @@ function updateFaultyItems($dbConnect){
             $sql = "UPDATE `issues` SET `issuetitle`='$issuetitle',`itemname`='$itemname',
                     `description`='$description',`repairername`='$repairername',`repairernumber`='$repairernumber',
                     `repaireraddress`='$repaireraddress',`issuedate`='$issuedate',`repaireddate`='$repaireddate',
-                    `reportedby`='$reportedby',`planamount`='$planamount',`isrepairable`='$isrepairable' 
+                    `reportedby`='$reportedby',`planamount`='$planamount',`isrepairable`='$isrepairable',`nextservicedate`='$nextservicedate' 
                     WHERE `issueid`= '$issueID'";
 
             $result = mysqli_query($dbConnect, $sql);
@@ -525,6 +524,68 @@ function updateUserProfile($dbConnect)
 }
 
 
+function dueserviceitems($dbConnect)
+{
+    $query = "SELECT * FROM issues WHERE `nextservicedate` = CURRENT_DATE;";
+
+    $result = mysqli_query($dbConnect, $query);
+    if (generalErrorCheck($dbConnect, $result));
+    else {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $issueid = $row['issueid'];
+            $issuetitle = $row['issuetitle'];
+            $itemname = $row['itemname'];
+            $planamount = $row['planamount'];
+            $reportedby = $row['reportedby'];
+            $repairername = $row['repairername'];
+            $repairernumber = $row['repairernumber'];
+            $repaireddate = $row['repaireddate'];
+            $nextservicedate = $row['nextservicedate'];            
+            $isrepairable = $row['isrepairable'];
+            $issuedate = $row['issuedate'];
+            // $description = $row['description'];
+            ?>
+            <tr>
+            <!-- <td>
+                <a href="editissues.php?editIssue=<?php //echo $issueid; ?>"class="far fa-edit text-primary" title="edit <?php //echo $itemname; ?> fault"></a> <span style="padding-left: 10px;"></span>
+                <a onclick="javascript: return confirm('Are you sure you want to erase <?php //echo $itemname; ?>\'s faulty detail?')" href="serviceentry.php?deleteissue=<?php //echo $issueid; ?>"class="far fa-trash-alt text-danger" title="erase <?php //echo $itemname; ?> fault"></a>
+            </td> -->
+            <td><?php echo $itemname; ?></td>
+            <!-- <td><?php //echo $issuetitle; ?></td> -->
+            <td><?php echo number_format($planamount, 2,'.', ','); ?></td>
+            <td><?php echo date("d-M-Y", strtotime($issuedate)); ?></td>
+            <td><?php echo date("d-M-Y", strtotime($repaireddate)); ?></td>
+            <td><?php echo date("d-M-Y", strtotime($nextservicedate)); ?></td>
+            <td><?php echo $repairername; ?></td>
+            <td><?php echo $repairernumber; ?></td>
+            <td><?php echo $reportedby; ?></td>
+            <!-- <td><?php //echo ($isrepairable)==1 ? "True": "False"; ?></td> -->
+            </tr>
+
+            <?php
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 function populateAllIssues($dbConnect)
@@ -543,6 +604,7 @@ function populateAllIssues($dbConnect)
             $repairername = $row['repairername'];
             $repairernumber = $row['repairernumber'];
             $repaireddate = $row['repaireddate'];
+            $nextservicedate = $row['nextservicedate'];            
             $isrepairable = $row['isrepairable'];
             $issuedate = $row['issuedate'];
             // $description = $row['description'];
@@ -551,13 +613,13 @@ function populateAllIssues($dbConnect)
             <td>
                 <a href="editissues.php?editIssue=<?php echo $issueid; ?>"class="far fa-edit text-primary" title="edit <?php echo $itemname; ?> fault"></a> <span style="padding-left: 10px;"></span>
                 <a onclick="javascript: return confirm('Are you sure you want to erase <?php echo $itemname; ?>\'s faulty detail?')" href="serviceentry.php?deleteissue=<?php echo $issueid; ?>"class="far fa-trash-alt text-danger" title="erase <?php echo $itemname; ?> fault"></a>
-                <!-- data-toggle="modal" data-target="#deleteModal" -->
             </td>
             <td><?php echo $itemname; ?></td>
             <td><?php echo $issuetitle; ?></td>
-            <td><?php echo number_format($planamount, '1','.0', ','); ?></td>
+            <td><?php echo number_format($planamount, 2,'.', ','); ?></td>
             <td><?php echo date("d-M-Y", strtotime($issuedate)); ?></td>
             <td><?php echo date("d-M-Y", strtotime($repaireddate)); ?></td>
+            <td><?php echo date("d-M-Y", strtotime($nextservicedate)); ?></td>
             <td><?php echo $repairername; ?></td>
             <td><?php echo $repairernumber; ?></td>
             <td><?php echo $reportedby; ?></td>
@@ -725,6 +787,22 @@ function baseTotalCount($dbConnect, $tableName, $columnClause = null)
 }
 
 
+function totalServiceDateCount($dbConnect, $tableName)
+{
+    // $qry = "SELECT * FROM ". $tableName." ";
+    $queryWithCondition = "SELECT * FROM ". $tableName." WHERE nextservicedate = CURRENT_DATE ";
+
+    // if($columnClause == 'CURRENT_DATE'){
+        $runCondition = mysqli_query($dbConnect, $queryWithCondition);
+        if(generalErrorCheck($dbConnect, $runCondition));
+        else{
+            $counter = mysqli_num_rows($runCondition);
+            echo $counter;
+        }
+    // }
+}
+
+
 function baseReportFunction($dbConnect, $tableName, $columnClause = null)
 {
     $query = "SELECT * FROM ". $tableName. " ";
@@ -747,7 +825,7 @@ function baseReportFunction($dbConnect, $tableName, $columnClause = null)
                 <td><?php echo $itemname; ?></td>
                 <td><?php echo $itemtype; ?></td>
                 <td><?php echo $itemnumber; ?></td>
-                <!-- number_format($planamount, '1','.0', ','); -->
+                <!-- number_format($planamount, 2,'.', ','); -->
                 <td><?php echo number_format($itemamount, '1', ".0", ","); ?></td>
                 <td><?php echo date("d-M-Y", strtotime($itempurchasedate)); ?></td>
                 </tr>
@@ -789,15 +867,17 @@ function baseReportFunction($dbConnect, $tableName, $columnClause = null)
                 $repairername = $row['repairername'];
                 $repairernumber = $row['repairernumber'];
                 $repaireddate = $row['repaireddate'];
+                $nextservicedate = $row['nextservicedate'];
                 $isrepairable = $row['isrepairable'];
                 $issuedate = $row['issuedate'];
                 ?>
                 <tr>
                 <td><?php echo $itemname; ?></td>
                 <td><?php echo $issuetitle; ?></td>
-                <td><?php echo number_format($planamount, '1','.0', ','); ?></td>
+                <td><?php echo number_format($planamount, 2,'.', ','); ?></td>
                 <td><?php echo date("d-M-Y", strtotime($issuedate)); ?></td>
                 <td><?php echo date("d-M-Y", strtotime($repaireddate)); ?></td>
+                <td><?php echo date("d-M-Y", strtotime($nextservicedate)); ?></td>
                 <td><?php echo $repairername; ?></td>
                 <td><?php echo $repairernumber; ?></td>
                 <td><?php echo $reportedby; ?></td>
@@ -820,15 +900,17 @@ function baseReportFunction($dbConnect, $tableName, $columnClause = null)
                 $repairername = $row['repairername'];
                 $repairernumber = $row['repairernumber'];
                 $repaireddate = $row['repaireddate'];
+                $nextservicedate = $row['nextservicedate'];
                 $isrepairable = $row['isrepairable'];
                 $issuedate = $row['issuedate'];
                 ?>
                 <tr>
                 <td><?php echo $itemname; ?></td>
                 <td><?php echo $issuetitle; ?></td>
-                <td><?php echo number_format($planamount, '1','.0', ','); ?></td>
+                <td><?php echo number_format($planamount, 2,'.', ','); ?></td>
                 <td><?php echo date("d-M-Y", strtotime($issuedate)); ?></td>
                 <td><?php echo date("d-M-Y", strtotime($repaireddate)); ?></td>
+                <td><?php echo date("d-M-Y", strtotime($nextservicedate)); ?></td>
                 <td><?php echo $repairername; ?></td>
                 <td><?php echo $repairernumber; ?></td>
                 <td><?php echo $reportedby; ?></td>

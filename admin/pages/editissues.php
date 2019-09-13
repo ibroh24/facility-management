@@ -13,6 +13,7 @@
             $repairername = $row['repairername'];
             $repairernumber = $row['repairernumber'];
             $repaireddate = $row['repaireddate'];
+            $nextservicedate = $row['nextservicedate'];            
             $isrepairable = $row['isrepairable'];
             $issuedate = $row['issuedate'];
             $description = $row['description'];
@@ -92,8 +93,9 @@
                     <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"><i class="fas fa-cogs"></i><span class="hide-menu"> Facilities Maintenance </span></a>
                         <ul aria-expanded="false" class="collapse  first-level">
                             <li class="sidebar-item"><a href="addissues.php" class="sidebar-link"><i class="mdi mdi-bug"></i><span class="hide-menu"> Add Issues </span></a></li>
-                            <!-- <li class="sidebar-item"><a href="viewVehicle.php" class="sidebar-link"><i class="mdi mdi-bug"></i><span class="hide-menu"> View Expired Facilities </span></a></li> -->
+                            <!-- <li class="sidebar-item"><a href="dueserviceitems.php" class="sidebar-link"><i class="mdi mdi-bug"></i><span class="hide-menu"> View Expired Facilities </span></a></li> -->
                             <li class="sidebar-item"><a href="serviceentry.php" class="sidebar-link"><i class="mdi mdi-settings"></i><span class="hide-menu"> Service Entry </span></a></li>
+                            <li class="sidebar-item"><a href="dueserviceitems.php" class="sidebar-link"><i class="mdi mdi-settings"></i><span class="hide-menu"> Item Due to Service</span></a></li>
                         </ul>
                     </li>
                     <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"><i class="fas fa-user-circle"></i><span class="hide-menu">Users </span></a>
@@ -225,8 +227,12 @@
                                             <input type="date" autocomplete="off" class="form-control" name="repaireddate" value="<?php echo $repaireddate; ?>" id="" placeholder="mm/dd/yyyy">
                                         </div>
 
+                                        <div class="col-md-6">
+                                            <label for="lname" class="control-label col-form-label"><b>Next Service Date</b></label>
+                                            <input type="date" autocomplete="off" class="form-control" name="nextservicedate" value="<?php echo $nextservicedate; ?>" id="" placeholder="mm/dd/yyyy">
+                                        </div>
 
-                                        <div class="col-md-12" style="padding-top: 20px;">
+                                        <div class="col-md-6" style="padding-top: 20px;">
                                             <label for="lname" class="control-label col-form-label"><b>Fault Description</b></label>
                                             <input type="text" name="description" class="form-control" id="" value="<?php echo $description; ?>"  required="required" rows="10", cols='50'>
                                         </div>
